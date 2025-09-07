@@ -1,35 +1,36 @@
 #!/bin/bash
 
 # Define the path to your program
-PROGRAM="/home/marlee/projects/push_swap/bin/main.out"
+PROGRAM="/home/marlee/projects/push_swap/push_swap"
+CHECKER="/home/marlee/projects/push_swap/checker_linux"
 
-# Test cases
-echo "--- Running Test Case 1: All integers ---"
-echo $PROGRAM 1 2 3 4 4
+args=(
+""
+"0" #single number
+"1" #single number
+"-2147483648" #INT_MIN
+"2147483647" #INT_MAX
+"-2147483649" #INT_MIN -1
+"1 2"
+"1 2 3"
+"1 2 3 4"
+"1 2 3 4 5"
+"5 1 2 3 4"
+"5 1 2 3 4"
+"-100 2 4 344 343 1 455 986"
+"one 1 3"
+"'2 43 -1'"
+"2147483647 -2147483648"
+"-2147483647 -2147483648"
+"-2147483648 -2147483647"
+"-2147483648 -2147483648"
+"2147483647 2147483647"
+"2147483647 2147483646"
+"2147483646 2147483647"
+)
 
-echo "--- Running Test Case 2: Different integers ---"
-$PROGRAM 1 4 5 5
-
-echo "--- Running Test Case 3: Mixed string and integers ---"
-$PROGRAM one 1 3
-
-echo "--- Running Test Case 4: Quoted string argument ---"
-$PROGRAM "2 43 -1"
-
-# You can add more test cases as needed
-echo "--- Running Test Case 5: No arguments ---"
-$PROGRAM
-
-$PROGRAM "\"-2147483648\""
-$PROGRAM "\"-2147483649"\"
-$PROGRAM "\"2147483647"\"
-$PROGRAM "\"2147483648"\"
-$PROGRAM "\"2147483649"\"
-
-$PROGRAM -2147483648
-$PROGRAM -2147483649
-$PROGRAM 2147483647
-$PROGRAM 2147483648
-$PROGRAM 2147483649
-
-$PROGRAM "0"
+for ARG in "${args[@]}"; do
+	echo "~~~ arg is: ${ARG} ~~~"
+	eval "$PROGRAM $ARG | $CHECKER $ARG"
+	eval "$PROGRAM $ARG | wc -l"
+done
