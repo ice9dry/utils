@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Define the path to your program
-PROGRAM="/home/marlee/projects/push_swap/push_swap"
-CHECKER="/home/marlee/projects/push_swap/checker_linux"
+PROGRAM="../../../push_swap"
+CHECKER="../../../checker_linux"
 
 args=(
 #NOT OK
